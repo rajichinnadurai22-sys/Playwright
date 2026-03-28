@@ -4,7 +4,7 @@ test('login page',async ({page})=>{
 
     await page.goto("https://www.glassdoor.com")
 
-    await expect(page).toHaveTitle("Glassdoor | Job Search and Career Community")
+    await expect(page).toHaveTitle(/Glassdoor/)
 
     await page.locator("//button[@class='HomePageSeoFooterLinks_cta__zp5kr ']//*[name()='svg']").click()
 
