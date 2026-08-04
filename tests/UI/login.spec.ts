@@ -1,32 +1,51 @@
 import {test, expect} from '@playwright/test';
+import { LoginPage } from '../Pages/Loginpage'
 
-test('login page',async ({page})=>{
+test.describe('login page',()=>{
 
-    await page.goto("https://www.glassdoor.com")
+    // await page.goto("https://www.saucedemo.com")
 
-    await expect(page).toHaveTitle(/Glassdoor/)
+    // await expect(page).toHaveTitle(/Swag Labs/)
 
-    await page.locator("//button[@class='HomePageSeoFooterLinks_cta__zp5kr ']//*[name()='svg']").click()
+    // await page.locator("#user-name").fill("standard_user")
+    // await page.locator("#password").fill("secret_sauce")
+    // await page.locator("#login-button").click()
+       
 
-    const jobs=await page.$$("//h4[text()='Popular Jobs']/following-sibling::ul//a")
+    //  const prod=await page.$$("//*[@class='inventory_list']//div[@class='inventory_item_name ']")
 
-    console.log("No of jobs under IT:", jobs.length);
+    //  console.log("No of products:", prod.length);
 
-    for(const jobl of jobs){
+    // for(const product of prod){
         
-        const jobText = await jobl.textContent()
+    //     const ProdText = await product.textContent()
 
-        console.log(jobText)
+    //     console.log(ProdText)
 
-        if(jobText==='Quality Assurance Engineer'){
+    //     if(ProdText==='Sauce Labs Fleece Jacket'){
 
-            await jobl.click()
+    //         await product.click()
 
-    await page.waitForTimeout(5000)
+    // await page.waitForTimeout(5000)
 
-        }
+    //     }
 
-    }
+    // }
+
+    test.beforeEach(async ({ page }) => {
+        const loginPage = new LoginPage(page);
+        await loginPage.navigate();
+    });
+
+    test('Valid Login', async ({ page }) => {
+
+        const loginPage = new LoginPage(page);
+
+        await loginPage.loginWithValidUser();
+
+        await expect(page).toHaveURL(/Swag Labs/);
+    });
+
 
     
 })
